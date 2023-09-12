@@ -1,0 +1,13 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{int a,b,c,m,t=0;
+m=0;
+scanf("%d%d%d",&a,&b,&c);
+printf("%d,%d,%d\n",c,t,m);
+t=abs(a-c); 
+printf("%d,%d,%d\n",a,t,m+1);
+a=abs(a-b);
+printf("%d,%d,%d\n",b,t+a,m);
+return 0;
+ } 
