@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<math.h>
 int main( )
 {int n,q,sum;
   printf("输入乘坐电梯总人数:");
