@@ -25,7 +25,8 @@ int main( )
 	 goto xia;
  do
  {
-  shi:for(m,t;m<11;m++,t++)//上行 
+  shi:if(n>0)
+ { for(m,t;m<11;m++,t++)//上行 
   {
    for(h=0;h<q;h++)//按时间读入起始楼层 
    {
@@ -91,7 +92,7 @@ int main( )
        x=x+1;
 	 }
     if(x>0)
-     a[i]=0;
+     a[i]=0,o[i]=-1;//将该用户的时间破坏，防止第一个来的人与电梯楼层相同时电梯将此人接两遍
     else
      {
       for(j=0;j<q;j++)
@@ -102,14 +103,16 @@ int main( )
         y=y+1;
       }
      if(y>0)
-      a[i]=0;
+      a[i]=0,o[i]=-1;
      else
-    {a[i]=0;
+    {a[i]=0,o[i]=-1;
      goto xia;}
      }
     }
    }
    	
+  }
+  
   }
   xia:if(n>0||r>0)//下行  
   {if(m==11)
@@ -196,7 +199,7 @@ int main( )
 	 }
     }
     if(x>0)
-     a[i]=0;
+     a[i]=0,o[i]=-1;
     else    
 	{
 	for(j=0;j<q;j++)
@@ -212,9 +215,9 @@ int main( )
        }
       }
       if(y>0)
-       a[i]=0;
+       a[i]=0,o[i]=-1;
       else
-      {a[i]=0;
+      {a[i]=0,o[i]=-1;
        goto shi;}
      }
     }
