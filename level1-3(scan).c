@@ -1,11 +1,16 @@
 #include<stdio.h>
+#include<math.h>
 int main( )
 {int n,q;
- printf("输入乘坐电梯总人数:");
+ printf("input how many pepole:");
  scanf("%d",&n);
   q=n;
-  int a[n],b[n],c[n],i;
-  printf("输入用户起始楼层,目标楼层:\n");
+  int a[n],b[n],c[n],i,j,x,y;
+  for(i=0;i<q;i++)
+  {
+   c[i]=0;
+  }
+  printf("input the floor:\n");//输入用户起始楼层 ,目标楼层 
  for(i=0;i<q;i++)
  {
   scanf("%d,%d",&a[i],&b[i]);
@@ -16,58 +21,196 @@ int main( )
   	printf("电梯起始楼层："); 
     scanf("%d",&m);
     printf("%d,%d,%d\n",m,t,r);
- do
+    x=a[0];
+     for(i=1;i<q;i++)
+     {
+      if(x<a[i])
+	  	x=a[i];
+	 }
+	 if(m>x)
+	 goto ki;
+    do
+    {
+ shi:if(n>0)
  {
-  for(m,t;m<11;m++,t++)//上行 
+ for(m,t;m<11;m++,t++)
+ {
+  for(i=0;i<q;i++)
+  {   if(m==0)
+  m=m+1,t=t-1;
+   if(m==c[i])//
+   {
+   	r=r-1;
+   	printf("%d,%d,%d\n",m,t,r); 
+   	n=n-1;
+   	x=0,y=0; 
+    for(j=0;j<q;j++)
+    {
+     if(c[i]>=a[j])
+     x=x;
+     else
+     {
+      if(a[j]==120)
+      x=x;
+      else
+      x=x+1;
+	 }
+    }
+    if(x>0)
+    c[i]=120;
+    else
+     {
+	  for(j=0;j<q;j++)
+      {
+       if(c[i]>=c[j])
+       y=y;
+       else
+       {
+        if(c[j]==120)
+        y=y;
+        else
+        y=y+1;
+	   }
+      }
+     if(y>0)
+     c[i]=120;
+     else
+     {c[i]=120;
+     goto ki;}
+     }
+ 
+   }
+   if(m==a[i])//
+   {
+	if(r==4)
+	continue;
+    r=r+1;
+    printf("%d,%d,%d\n",m,t,r);
+    c[i]=b[i];
+    x=0,y=0; 
+    for(j=0;j<q;j++)
+    {
+     if(a[i]>=a[j])
+     x=x;
+     else
+     {
+      if(a[j]==120)
+      x=x;
+      else
+      x=x+1;
+    }
+    if(x>0)
+    a[i]=120;//破坏a[i]，使其数据失效
+    else
+     {
+      for(j=0;j<q;j++)
+      {
+       if(a[i]>=c[j])
+       y=y;
+       else
+       {
+        if(c[j]==120)
+        y=y;
+        else
+        y=y+1;
+	   }
+      }
+     if(y>0)
+     a[i]=120;
+     else
+    {a[i]=120;
+     goto ki;}
+     }
+   }
+  }
+   	
+  }
+  
+ }
+}
+ki:if(n>0||r>0)
+ 
+ {if(m==11)
+ m=10,t=t-1;
+  for(m,t;m>0;m=m-1,t++)
   {
    for(i=0;i<q;i++)
-   {   
-    if(m==c[i])//送人 
-    {
-   	 r=r-1;
-   	 printf("%d,%d,%d\n",m,t,r); 
-     c[i]=12;
-	 n=n-1; 
-    }
-    if(m==a[i])//接人 
-    {
-	 if(r==4)
-	  continue;//超载情况下忽略请求 
-     r=r+1;
-     printf("%d,%d,%d\n",m,t,r);
-     c[i]=b[i];
-     a[i]=12;//破坏a[i]，使其数据失效 
-    }
-
-   }
-  }
-  if(m=11&&n>0||r>0)
-  {m=10,t=t-1;//调整误差 
-   for(m,t;m>0;m=m-1,t++)//下行 
+  {   
+   if(m==c[i])//
    {
-    for(i=0;i<q;i++)
-    {   
-     if(m==c[i])//送人 
-     {
-   	  r=r-1;
-   	  printf("%d,%d,%d\n",m,t,r); 
-      c[i]=12;
-      n=n-1;
-     }
-     if(m==a[i])//接人 
-     { 
-      if(r==4)
-	  continue;
-     r=r+1;
-     printf("%d,%d,%d\n",m,t,r);
-     c[i]=b[i];
-     a[i]=12;
-     }
-
+   	r=r-1;
+   	printf("%d,%d,%d\n",m,t,r); 
+   	n=n-1;
+   	x=0,y=0; 
+    for(j=0;j<q;j++)
+    {
+     x=c[i]<=a[j]&&a[j]?x:x+1;
     }
+    if(x>0)
+    c[i]=120;
+    else
+     {
+	  for(j=0;j<q;j++)
+      {
+      if(c[i]<=c[j])
+        y=y;
+      else
+       {
+	    if(c[j]==0)
+        y=y;
+        else
+        y=y+1;
+       }
+      }
+      if(y>0)
+      c[i]=120;
+      else
+      {c[i]=120;
+       goto shi;}
+     }
+     
    }
-   m=1,t=t-1;//调整误差 
+   if(m==a[i])//
+   {
+	if(r==4)
+	continue;
+    r=r+1;
+    printf("%d,%d,%d\n",m,t,r);
+    c[i]=b[i];
+    	x=0,y=0; 
+    for(j=0;j<q;j++)
+    {
+     x=a[i]<=a[j]?x:x+1;
+    }
+    if(x>0)
+    a[i]=120;
+    else
+     
+	{
+	for(j=0;j<q;j++)
+      {
+      if(a[i]<=c[j])
+        y=y;
+      else
+       {
+	    if(c[j]==0)
+        y=y;
+        else
+        y=y+1;
+       }
+      }
+      if(y>0)
+      a[i]=120;
+      else
+      {a[i]=120;
+       goto shi;}
+     }
+   }
+  } 
   }
- }while(n!=0);
+  if(m=0)
+  m=1,t=t-1;
+ }
+}while(n!=0);
  return 0;
-}
+ }
